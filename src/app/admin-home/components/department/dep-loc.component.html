@@ -1,0 +1,73 @@
+<nz-card nzTitle="Departments" [nzExtra]="extraTemplate">
+    <mat-progress-bar class="m-2" color="accent" mode="indeterminate" *ngIf="isLoading" value="20"></mat-progress-bar>
+    <nz-table #basicTable [nzData]="listOfData">
+        <thead>
+            <tr>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+                <td>{{ data.departmentName }}</td>
+                <td>
+                    <a class="btn text-danger" (click)="onDelete(data)">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+
+<ng-template #extraTemplate>
+    <button nz-button nzType="default" (click)="showModal()">Add Department</button>
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalPvTitle" [nzContent]="modalDoctorContent" [nzFooter]="modalPvFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalPvTitle>
+        Add new Department
+    </ng-template>
+    <ng-template #modalDoctorContent>
+        <form nz-form [formGroup]="validateForm">
+            <div>
+                <mat-form-field class="full-width">
+                    <input matInput required placeholder="Docments Type" formControlName="departmentName"
+                        [(ngModel)]="departmentModel.departmentName" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <button mat-raised-button color="primary" class="full-width" (click)="save()"
+                [disabled]="!validateForm.valid"> Save
+            </button>
+        </form>
+    </ng-template>
+    <ng-template #modalPvFooter>
+        <p class="text-center text-info"> Add Department </p>
+    </ng-template>
+    
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalPvTitle" [nzContent]="modalDoctorContent" [nzFooter]="modalPvFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalPvTitle>
+        Add new Department
+    </ng-template>
+    <ng-template #modalDoctorContent>
+        <form nz-form [formGroup]="validateForm">
+            <div>
+                <mat-form-field class="full-width">
+                    <input matInput required placeholder="Docments Name" formControlName="departmentName"
+                        [(ngModel)]="departmentModel.departmentName" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <button mat-raised-button color="primary" class="full-width" (click)="save()"
+                [disabled]="!validateForm.valid"> Save
+            </button>
+        </form>
+    </ng-template>
+    <ng-template #modalPvFooter>
+        <p class="text-center text-info"> Add Department </p>
+    </ng-template>
+    
+</nz-modal>

@@ -1,0 +1,54 @@
+<!-- Toolbar -->
+<div class="doNotPrint">
+	<mat-toolbar color="primary" class="header">
+		<span>
+			<mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+		</span>
+		<p class="mt-2" style="font-size: 18px;">{{screenTitle}}</p>
+		<div class="row mr-2 ">
+			<p class="mt-2 " style="font-size: 18px;">{{userName}}</p>
+			<button mat-icon-button color="accent" (click)="logout()">
+				<mat-icon>home</mat-icon>
+			</button>
+		</div>
+	</mat-toolbar>
+	<mat-sidenav-container>
+		<!-- Sidenav -->
+		<mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
+			[fixedTopGap]>
+			<mat-nav-list>
+
+				<a class="mt-4" mat-list-item (click)="addTitle('Employees')" [routerLink]="'/admin/employees'">
+					<mat-icon color="primary">person</mat-icon> Employees
+				</a>
+
+				<a class="mt-4" mat-list-item (click)="addTitle('Departments')" [routerLink]="'/admin/department'">
+					<mat-icon color="primary">person</mat-icon> Departments 
+				</a>
+
+				<a class="mt-4" mat-list-item (click)="addTitle('Locations')" [routerLink]="'/admin/locations'">
+					<mat-icon color="primary">location_on</mat-icon> Locations 
+				</a>
+
+				<a mat-list-item (click)="addTitle('Reports')" [routerLink]="'/admin/reports'">
+					<mat-icon color="primary">auto_graph</mat-icon> Reports
+				</a>
+
+				<!-- <a mat-list-item (click)="addTitle('Notifications')" [routerLink]="'/admin/notifications'">
+					<mat-icon color="primary">notifications</mat-icon> Notifications
+				</a> -->
+
+				<a mat-list-item (click)="aboutApp()">
+					<mat-icon color="primary">favorite</mat-icon> AboutApp
+				</a>
+
+			</mat-nav-list>
+
+		</mat-sidenav>
+		<!-- Main content -->
+		<mat-sidenav-content>
+			<router-outlet></router-outlet>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
+
+</div>

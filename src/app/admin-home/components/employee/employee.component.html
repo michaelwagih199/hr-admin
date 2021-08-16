@@ -1,0 +1,77 @@
+<nz-card nzTitle="Card title" [nzExtra]="extraTemplate">
+    <nz-table #basicTable [nzData]="listOfData">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Department</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+                <td>{{ data.employeeName }}</td>
+                <td>{{ data.employeAge }}</td>
+                <td>{{ data.department.departmentName }}</td>
+                <td>{{ data.location.locationName }}</td>
+                <td>
+                    <a class="btn text-danger" (click)="onDelete(data)">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+<ng-template #extraTemplate>
+    <button nz-button nzType="default">Add Employee</button>
+</ng-template>
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalPvTitle" [nzContent]="modalDoctorContent" [nzFooter]="modalPvFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalPvTitle>
+        Add new Employee
+    </ng-template>
+    <ng-template #modalDoctorContent>
+        <form nz-form [formGroup]="validateForm">
+            <div>
+                <mat-form-field class="full-width">
+                    <input matInput required placeholder="Employee Name" formControlName="employeeName"
+                        [(ngModel)]="employee.employeeName" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="full-width">
+                    <input matInput required placeholder="Employee Age" formControlName="employeAge"
+                        [(ngModel)]="employee.employeAge" autocomplete="off">
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Place Type</mat-label>
+                <mat-select matNativeControl required [(ngModel)]="departmentSelected" formControlName="departmentName">
+                    <mat-option *ngFor="let item of departmentSet" [value]="item.id">
+                        {{item.departmentName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Place Type</mat-label>
+                <mat-select matNativeControl required [(ngModel)]="locationSelected" formControlName="locationName">
+                    <mat-option *ngFor="let item of locationsSet" [value]="item.id">
+                        {{item.locationName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="full-width" (click)="save()"
+                [disabled]="!validateForm.valid"> Save
+            </button>
+        </form>
+    </ng-template>
+    <ng-template #modalPvFooter>
+        <p class="text-center text-info"> Add Employee </p>
+    </ng-template>
+</nz-modal>

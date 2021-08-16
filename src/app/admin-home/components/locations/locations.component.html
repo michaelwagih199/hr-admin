@@ -1,0 +1,68 @@
+<nz-card nzTitle="Locations" [nzExtra]="extraTemplate">
+    <mat-progress-bar class="m-2" color="accent" mode="indeterminate" *ngIf="isLoading" value="20"></mat-progress-bar>
+    <nz-table #basicTable [nzData]="listOfData">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>LATITUDE</th>
+                <th>LONGITUDE</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+                <td>{{ data.locationName }}</td>
+                <td>{{ data.LATITUDE }}</td>
+                <td>{{ data.LONGITUDE }}</td>
+                <td>
+                    <a class="btn text-danger" (click)="onDelete(data)">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+<ng-template #extraTemplate>
+    <button nz-button nzType="default" (click)="showModal()">Add Location</button>
+</ng-template>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalPvTitle" [nzContent]="modalDoctorContent" [nzFooter]="modalPvFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalPvTitle>
+        Add new Location
+    </ng-template>
+    <ng-template #modalDoctorContent>
+        <form nz-form [formGroup]="validateForm">
+            <div>
+                <mat-form-field class="full-width">
+                    <input matInput required placeholder="location Name" formControlName="departmentName"
+                        [(ngModel)]="location.locationName" autocomplete="off">
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput required placeholder="location Url" formControlName="locationUrl"
+                        [(ngModel)]="location.locationUrl" autocomplete="off">
+                </mat-form-field>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <input matInput required placeholder="LATITUDE" formControlName="latitude"
+                                [(ngModel)]="location.LATITUDE" autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <input matInput required placeholder="LONGITUDE" formControlName="longitude"
+                                [(ngModel)]="location.LONGITUDE" autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <button mat-raised-button color="primary" class="full-width" (click)="save()"
+                [disabled]="!validateForm.valid"> Save
+            </button>
+        </form>
+    </ng-template>
+    <ng-template #modalPvFooter>
+        <p class="text-center text-info"> Add Location </p>
+    </ng-template>
+</nz-modal>
