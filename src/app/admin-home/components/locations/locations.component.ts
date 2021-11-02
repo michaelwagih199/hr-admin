@@ -5,7 +5,9 @@ import LocationModel from '../../models/locationModel';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { LocationService } from '../../services/location.service';
 import { map } from 'rxjs/operators';
-
+import EmployeeModel from '../../models/employee';
+import { BarcodeComponent } from '../barcode/barcode.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-locations',
@@ -23,6 +25,7 @@ export class LocationsComponent implements OnInit {
     private notification: NzNotificationService,
     private modal: NzModalService,
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private locationService: LocationService
   ) {}
 
@@ -63,6 +66,21 @@ export class LocationsComponent implements OnInit {
     this.isVisible = true;
   }
 
+  onBarcode(element: LocationModel) {
+    // this.isLoading = true;
+    const dialogRef = this.dialog.open(BarcodeComponent, {
+      data: {
+        model: element,
+      },
+    });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        const a = document.createElement('a');
+        a.click();
+        a.remove();
+      }
+    });
+  }
 
   onDelete(item: LocationModel): void {
     this.modal.confirm({
@@ -93,7 +111,6 @@ export class LocationsComponent implements OnInit {
       nzOnCancel: () => console.log('Cancel'),
     });
   }
-
 
   save() {
     this.isLoading = true;

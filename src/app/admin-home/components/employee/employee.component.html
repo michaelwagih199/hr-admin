@@ -1,11 +1,15 @@
-<nz-card nzTitle="Card title" [nzExtra]="extraTemplate">
-    <nz-table #basicTable [nzData]="listOfData">
+
+<nz-card nzTitle="Employees" [nzExtra]="extraTemplate">
+    <mat-progress-bar class="m-2" color="accent" mode="indeterminate" *ngIf="isLoading" value="20"></mat-progress-bar>
+    <nz-table #basicTable [nzData]="employeeSet">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Age</th>
                 <th>Department</th>
                 <th>Location</th>
+                <th>UserName</th>
+                <th>Password</th>
             </tr>
         </thead>
         <tbody>
@@ -14,17 +18,25 @@
                 <td>{{ data.employeAge }}</td>
                 <td>{{ data.department.departmentName }}</td>
                 <td>{{ data.location.locationName }}</td>
+                <td>{{ data.userName }}</td>
+                <td>{{ data.password }}</td>
                 <td>
-                    <a class="btn text-danger" (click)="onDelete(data)">
+                    <!-- <a class="btn text-danger" (click)="onDelete(data)">
                         <i nz-icon nzType="delete" nzTheme="outline"></i>
-                    </a>
+                    </a> -->
+
+                    <button mat-icon-button  color="primary"(click)="onDelete(data)" >
+                       <mat-icon>delete</mat-icon>
+                    </button>
+
+                   
                 </td>
             </tr>
         </tbody>
     </nz-table>
 </nz-card>
 <ng-template #extraTemplate>
-    <button nz-button nzType="default">Add Employee</button>
+    <button nz-button nzType="default" (click)="showModal()" >Add Employee</button>
 </ng-template>
 
 
@@ -35,23 +47,32 @@
     </ng-template>
     <ng-template #modalDoctorContent>
         <form nz-form [formGroup]="validateForm">
-            <div>
+            
                 <mat-form-field class="full-width">
                     <input matInput required placeholder="Employee Name" formControlName="employeeName"
                         [(ngModel)]="employee.employeeName" autocomplete="off">
                 </mat-form-field>
-            </div>
-            <div>
+            
+           
                 <mat-form-field class="full-width">
                     <input matInput required placeholder="Employee Age" formControlName="employeAge"
                         [(ngModel)]="employee.employeAge" autocomplete="off">
                 </mat-form-field>
-            </div>
 
+                <mat-form-field class="full-width">
+                    <input matInput required placeholder="User Name" formControlName="userName"
+                        [(ngModel)]="employee.userName" autocomplete="off">
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput type="password"required placeholder="Password" formControlName="password"
+                        [(ngModel)]="employee.password" autocomplete="off">
+                </mat-form-field>
+        
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Place Type</mat-label>
-                <mat-select matNativeControl required [(ngModel)]="departmentSelected" formControlName="departmentName">
-                    <mat-option *ngFor="let item of departmentSet" [value]="item.id">
+                <mat-select matNativeControl required (ngModelChange)="onDepartmentChange($event)" [(ngModel)]="departmentSelected" formControlName="departmentName">
+                    <mat-option *ngFor="let item of departmentSet" [value]="item">
                         {{item.departmentName}}
                     </mat-option>
                 </mat-select>
@@ -59,8 +80,8 @@
 
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Place Type</mat-label>
-                <mat-select matNativeControl required [(ngModel)]="locationSelected" formControlName="locationName">
-                    <mat-option *ngFor="let item of locationsSet" [value]="item.id">
+                <mat-select matNativeControl required  (ngModelChange)="onLocationChange($event)" [(ngModel)]="locationSelected" formControlName="locationName">
+                    <mat-option *ngFor="let item of locationsSet" [value]="item">
                         {{item.locationName}}
                     </mat-option>
                 </mat-select>

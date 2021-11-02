@@ -14,10 +14,14 @@
                 <td>{{ data.LATITUDE }}</td>
                 <td>{{ data.LONGITUDE }}</td>
                 <td>
-                    <a class="btn text-danger" (click)="onDelete(data)">
-                        <i nz-icon nzType="delete" nzTheme="outline"></i>
-                    </a>
+                    <button mat-icon-button color="primary" (click)="onDelete(data)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent" (click)="onBarcode(data)">
+                        <mat-icon>qr_code_scanner</mat-icon>
+                    </button>
                 </td>
+
             </tr>
         </tbody>
     </nz-table>

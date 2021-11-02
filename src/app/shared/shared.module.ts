@@ -9,6 +9,7 @@ import { ConfirmationDialog } from './components/layout/dialog/confirmation/conf
 import { AboutAppDialogComponent } from './components/layout/dialog/about-app-dialog/about-app-dialog.component';
 import { NgZorroModule } from './components/ng-zorro/ng-zorro.module';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { QRCodeModule } from 'angular2-qrcode';
 
 @NgModule({
   declarations: [...fromComponents.components, ConfirmationDialog, AboutAppDialogComponent],
@@ -21,7 +22,8 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     RouterModule,
     NgMaterialModule,
     NgZorroModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    QRCodeModule
    ],
   exports: [   
     CommonModule,
@@ -31,7 +33,8 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     NgMaterialModule,
     NgZorroModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    QRCodeModule
   ]
 })
 export class SharedModule { }

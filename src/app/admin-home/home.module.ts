@@ -9,13 +9,18 @@ import { ReportComponent } from './components/report/report.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { DepartmentComponent } from './components/department/dep-loc.component';
 import { LocationsComponent } from './components/locations/locations.component';
+import { BarcodeComponent } from './components/barcode/barcode.component';
 
 @NgModule({
-  declarations: [AdminHomeComponent, EmployeeComponent, ReportComponent, NotificationComponent, DepartmentComponent, LocationsComponent],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    SharedModule
-  ]
+  declarations: [
+    AdminHomeComponent,
+    EmployeeComponent,
+    ReportComponent,
+    NotificationComponent,
+    DepartmentComponent,
+    BarcodeComponent,
+    LocationsComponent,
+  ],
+  imports: [CommonModule, HomeRoutingModule, SharedModule],
 })
-export class AdminHomeModule { }
+export class AdminHomeModule {}
